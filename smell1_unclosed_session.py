@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     import csv
     import os
-    import psutil #for peak memory tracking
+    import psutil
 
 
     #loads CIFAR-10 dataset and standardizes seed for consistency
@@ -43,6 +43,11 @@ if __name__ == "__main__":
     )
 
 
+    #stores model reference without deleting it (simulates unclosed session)
+    stored_models = []
+    stored_models.append(model)
+
+
     #stops emissions tracker and returns total CO2 (kg)
     emissions = tracker.stop()
 
@@ -55,7 +60,7 @@ if __name__ == "__main__":
 
 
     #saves experiment results to CSV file for documentation
-    results_file = "results/baseline.csv"
+    results_file = "results/smell1_unclosed_session.csv"
     file_exists = os.path.isfile(results_file)
 
     with open(results_file, "a", newline="") as f:
@@ -81,7 +86,7 @@ if __name__ == "__main__":
 
 
     #prints final results to console
-    print("BASELINE COMPLETE")
+    print("Unclosed Session Leak Complete")
     print("Train runtime:", train_runtime)
     print("Eval runtime:", eval_runtime)
     print("Accuracy:", accuracy)
